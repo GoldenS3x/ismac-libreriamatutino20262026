@@ -1,9 +1,18 @@
 package com.distribuida.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "categoria")
 public class Categoria {
-    //atributos
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idcategoria")
     private int idCategoria;
+    @Column(name = "categoria")
     private String categoria;
+    @Column(name = "descripcion")
     private String descripcion;
 
     //constructor vacio
