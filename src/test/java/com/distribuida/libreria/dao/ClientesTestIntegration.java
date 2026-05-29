@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@AutoConfigureTestDatabase
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 @Rollback(value = false)
 
@@ -27,7 +27,7 @@ public class ClientesTestIntegration {
     private ClienteDAO clienteDAO;
 
     @Test
-    public void FindAll() {
+    public void findAll() {
         List<Cliente> clientes = clienteDAO.findAll();
         assertNotNull(clientes);
         assertTrue(clientes.size() > 0);
@@ -62,11 +62,11 @@ public class ClientesTestIntegration {
 
     @Test
     public void update() {
-        Optional<Cliente> cliente = clienteDAO.findById(44);
-        assertTrue(cliente.isPresent(), "El cliente con id=44 debe existir para ser actualozado");
+        Optional<Cliente> cliente = clienteDAO.findById(46);
+        assertTrue(cliente.isPresent(), "El cliente con id=44 debe existir para ser actualizado");
 
         cliente.orElse(null).setIdCedula("175004852");
-        cliente.orElse(null).setNombre("Alejadnro2");
+        cliente.orElse(null).setNombre("Alejandro");
         cliente.orElse(null).setApellido("Paz2");
         cliente.orElse(null).setDireccion("Av.por");
         cliente.orElse(null).setTelefono("0985534303");
@@ -75,17 +75,17 @@ public class ClientesTestIntegration {
         Cliente clienteActualizado = clienteDAO.save(cliente.orElse(null));
 
         assertEquals("Alejandro", clienteActualizado.getNombre());
-        assertEquals("Paz", clienteActualizado.getApellido());
+        assertEquals("Paz2", clienteActualizado.getApellido());
 
 
     }
 
     @Test
     public void delete() {
-        if (clienteDAO.existsById(44)) {
-            clienteDAO.deleteById(44);
+        if (clienteDAO.existsById(46)) {
+            clienteDAO.deleteById(46);
         }
-        assertFalse(clienteDAO.existsById(44), "El id=44 deberia haberse eliminado");
+        assertFalse(clienteDAO.existsById(46), "El id=44 deberia haberse eliminado");
 
     }
 
